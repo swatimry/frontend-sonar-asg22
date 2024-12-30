@@ -4,45 +4,48 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
-    const [name,setName]=useState("");
-    const [email,setEmail]=useState("");
-    const [password,setPassword]=useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const handleSingup=(e)=>{
+    // Initialize navigate function using useNavigate
+    const navigate = useNavigate();
+
+    const handleSignup = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:3000/signup",{name,email,password}).then(result=>{
-            if(result.status===201){
+        axios.post("http://localhost:3000/signup", { name, email, password }).then(result => {
+            if (result.status === 201) {
                 console.log("User Created Successfully");
-                navigate("/login");
+                navigate("/login"); // Use navigate here after successful signup
             }
-        }).catch(err=>{
-            if(err.response && err.response.status===400){
-                window.alert("Email Already exist");
-            }else{
+        }).catch(err => {
+            if (err.response && err.response.status === 400) {
+                window.alert("Email Already exists");
+            } else {
                 console.log("DB Error");
             }
-        })
+        });
     }
 
     return (
         <Grid container justifyContent="center" sx={{ mt: 5 }}>
             <Paper elevation={3} sx={{ p: 3, width: 400 }}>
-                <form onSubmit={handleSingup}>
-                    <TextField onChange={(e)=>{setName(e.target.value)}}
+                <form onSubmit={handleSignup}>
+                    <TextField onChange={(e) => { setName(e.target.value) }}
                         name="name" required
                         label="Enter Name"
                         variant="filled"
                         fullWidth
                         sx={{ mb: 2 }}
                     />
-                    <TextField onChange={(e)=>{setPassword(e.target.value)}}
+                    <TextField onChange={(e) => { setEmail(e.target.value) }}
                         name="email" required
                         label="Enter Email"
                         variant="filled"
                         fullWidth
                         sx={{ mb: 2 }}
                     />
-                    <TextField onChange={(e)=>{setPassword(e.target.value)}}
+                    <TextField onChange={(e) => { setPassword(e.target.value) }}
                         name="password" required
                         label="Enter Password"
                         variant="filled"
@@ -58,4 +61,5 @@ function Signup() {
         </Grid>
     );
 }
+
 export default Signup;
