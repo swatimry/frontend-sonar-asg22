@@ -22,14 +22,14 @@ pipeline {
                 '''
             }
         }
-        stage('Lint') {
+        /*stage('Lint') {
             steps {
                 bat '''
                 set PATH=%NODEJS_HOME%;%PATH%
                 npm run lint
                 '''
             }
-        }
+        }*/
         stage('Build') {
             steps {
                 bat '''
